@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-
-public class Solution
+﻿public class Solution
 {
     public int CountUnguarded(int m, int n, int[][] guards, int[][] walls)
     {
@@ -66,6 +64,20 @@ public class Solution
         return unprotected;
     }
 
+    public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
+    {
+        int[] packed = [.. nums1, .. nums2];
+
+        if (packed.Length <= 1)
+        {
+            return packed[0];
+        }
+
+        Array.Sort(packed);
+
+        return packed.Length % 2 == 0 ? (double)(((double)packed[packed.Length / 2 - 1] + (double)packed[packed.Length / 2]) / 2) : (double) packed[(packed.Length - 1) / 2];
+    }
+
     //public static int MaxEqualRowsAfterFlips(int[][] matrix)
     //{
 
@@ -73,10 +85,11 @@ public class Solution
 
     public static int[] ApplyOperations(int[] nums)
     {
-        
+
         for (int i = 0; i < nums.Length; i++)
         {
-            if (i + 1 < nums.Length) {
+            if (i + 1 < nums.Length)
+            {
                 if ((nums[i] == nums[i + 1]))
                 {
                     nums[i] *= 2;
@@ -91,9 +104,11 @@ public class Solution
 
         for (int i = 0; i < nums_temp.Count; i++)
         {
-            if (nums_temp[i] == 0) {
+            if (nums_temp[i] == 0)
+            {
                 zeroCounter++;
-            } else
+            }
+            else
             {
                 finalized.Add(nums_temp[i]);
             }
@@ -107,7 +122,7 @@ public class Solution
         nums_temp.Clear();
 
         Console.WriteLine(string.Join(", ", finalized));
-        return [..finalized];
+        return [.. finalized];
     }
 
     public int MinimumDeletions(int[] nums)
@@ -226,6 +241,6 @@ public class Solution
 
     public static void Main(string[] args)
     {
-        Console.WriteLine(ApplyOperations([847, 847, 0, 0, 0, 399, 416, 416, 879, 879, 206, 206, 206, 272]));
+        Console.WriteLine(FindMedianSortedArrays([1, 2], [3, 4]));
     }
 }
