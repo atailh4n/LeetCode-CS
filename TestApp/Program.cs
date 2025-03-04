@@ -63,7 +63,16 @@
 
         return unprotected;
     }
-
+    public static bool CheckPowersOfThree(int n)
+    {
+        string ternary = "";
+        ternary += (n % 3).ToString();
+        n = n / 3;
+        if (n > 0)
+            CheckPowersOfThree(n);
+        Console.WriteLine(ternary);
+        return !ternary.Contains('2');
+    }
     public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
     {
         int[] packed = [.. nums1, .. nums2];
@@ -241,6 +250,6 @@
 
     public static void Main(string[] args)
     {
-        Console.WriteLine(FindMedianSortedArrays([1, 2], [3, 4]));
+        Console.WriteLine(CheckPowersOfThree(91));
     }
 }
