@@ -67,7 +67,7 @@
     {
         string ternary = "";
         ternary += (n % 3).ToString();
-        n = n / 3;
+        n /= 3;
         if (n > 0)
             CheckPowersOfThree(n);
         Console.WriteLine(ternary);
