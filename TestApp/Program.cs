@@ -1,5 +1,61 @@
 ﻿public class Solution
 {
+    public static int LengthOfLongestSubstring(string s)
+    {
+        int maxL = 0;
+        int start = 0;
+        HashSet<char> set = [];
+
+        for (int end = 0; end < s.Length; end++)
+        {
+            while (set.Contains(s[end]))
+            {
+                set.Remove(s[start]);
+                start++;
+            }
+            set.Add(s[end]);
+            maxL = Math.Max(maxL, end - start + 1);
+        }
+
+        return maxL;
+    }
+    public static int MaxPerformance(int n, int[] speed, int[] efficiency, int k)
+    {
+        int mod = 1000000007;
+
+        List<(int efficiency, int speed)> engineers = new();
+        for (int i = 0; i < n; i++)
+        {
+            engineers.Add((efficiency[i], speed[i]));
+        }
+
+        engineers.Sort((a,b) => b.efficiency.CompareTo(a.efficiency));
+
+        PriorityQueue<int, int> minHeap = new();
+        long totalSpeed = 0;
+        long maxPerformance = 0;
+
+        foreach (var engineer in engineers)
+        {
+            int currSpeed = engineer.speed;
+
+            totalSpeed += currSpeed;
+            minHeap.Enqueue(currSpeed, currSpeed);
+
+            if (minHeap.Count > k)
+            {
+                totalSpeed -= minHeap.Dequeue();
+            }
+
+            maxPerformance = Math.Max(maxPerformance, totalSpeed * engineer.efficiency);
+        }
+
+        return (int)(maxPerformance % (mod));
+    }
+    public static long ColoredCells(int n)
+    {
+        return 2L * n * (n - 1) + 1;
+    }
     public int CountUnguarded(int m, int n, int[][] guards, int[][] walls)
     {
         int[,] matris = new int[m, n];
@@ -63,14 +119,14 @@
 
         return unprotected;
     }
+    
+    static string ternary = "";
     public static bool CheckPowersOfThree(int n)
     {
-        string ternary = "";
         ternary += (n % 3).ToString();
         n /= 3;
         if (n > 0)
             CheckPowersOfThree(n);
-        Console.WriteLine(ternary);
         return !ternary.Contains('2');
     }
     public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
