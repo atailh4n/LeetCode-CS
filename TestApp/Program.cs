@@ -1,5 +1,35 @@
-﻿public class Solution
+﻿using System;
+using System.Linq;
+
+public class Solution
 {
+    public static int[] FindMissingAndRepeatedValues(int[][] grid)
+    {
+        int twice = 0;
+        int missing = 0;
+        SortedSet<int> result = [];
+        for (int i = 0; i < grid.Length; i++)
+        {
+            for (int j = 0; j < grid[i].Length; j++)
+            {
+                if (!result.Contains(grid[i][j]))
+                {
+                    result.Add(grid[i][j]);
+                }
+                else
+                {
+                    twice = grid[i][j];
+                }
+            }
+        }
+
+        for (int i = 0; i <= (grid.Length * grid.Length); i++)
+        {
+            if (!result.Contains(i)) missing = i;
+        }
+
+        return [twice, missing];
+    }
     public static int LengthOfLongestSubstring(string s)
     {
         int maxL = 0;
@@ -190,7 +220,7 @@
         return [.. finalized];
     }
 
-    public int MinimumDeletions(int[] nums)
+    public static int MinimumDeletions(int[] nums)
     {
         if (nums.Length <= 1) return 1;
 
@@ -303,9 +333,8 @@
         return rotatedBox;
     }
 
-
     public static void Main(string[] args)
     {
-        Console.WriteLine(CheckPowersOfThree(91));
+        Console.WriteLine(FindMissingAndRepeatedValues([[1, 3], [2, 2]]));
     }
 }
